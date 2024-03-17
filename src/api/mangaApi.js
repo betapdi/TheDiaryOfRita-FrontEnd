@@ -12,6 +12,11 @@ const mangaApi = {
     return axiosClient.get(url)
   },
 
+  getChapterList: (id) => {
+    const url = `/mangaApp/${id}/chapterList/`
+    return axiosClient.get(url);
+  },
+
   getAllCategories: () => {
     const url = '/mangaApp/categoryList/'
     return axiosClient.get(url)

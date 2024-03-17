@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import mangaApi from '../../../api/mangaApi'
 
 export const addChapter = createAsyncThunk(
-  'chapterList/addChapter',
+  'chapter/addChapter',
 
   async (data) => {
     const response = await mangaApi.addChapter(data)
@@ -11,26 +11,41 @@ export const addChapter = createAsyncThunk(
 )
 
 export const addMultipleChapters = createAsyncThunk(
- 'chapterList/addMultipleChapters',
+ 'chapter/addMultipleChapters',
  
- async (data) => {
-  const response = await mangaApi.addMultipleChapters(data)
-  return response
- }
+  async (data) => {
+    const response = await mangaApi.addMultipleChapters(data)
+    return response
+  }
 )
 
-const chapterList = createSlice({
-  name: 'chapterList',
+export const getChapterList = createAsyncThunk(
+  'chapter/getChapterList',
+
+  async () => {
+    const response = await mangaApi.getChapterList()
+    return response
+  }
+)
+
+const chapter = createSlice({
+  name: 'chapter',
   initialState: [],
   reducers: {
 
   },
 
   extraReducers: {
+    [getChapterList.fulfilled]: (state, action) => {
+      const data = action.payload.map((chapter) => (
+        {id: chapter.id, index: chapter.index, title: chapter.title}
+      ))
 
+      return data;
+    }
   }
 })
 
-const { reducer, actions } = chapterList
+const { reducer, actions } = chapter
 export const { getAll } = actions
 export default reducer
