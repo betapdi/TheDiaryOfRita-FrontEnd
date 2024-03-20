@@ -32,6 +32,11 @@ const mangaApi = {
     return axiosClient.get(url)
   },
 
+  getChapterImages: (mangaId, chapterId) => {
+    const url = `/mangaApp/${mangaId}/${chapterId}/`
+    return axiosClient.get(url);
+  },
+
   addManga: (data) => {
     const formData = new FormData()
     formData.append('mangaName', data.mangaName)

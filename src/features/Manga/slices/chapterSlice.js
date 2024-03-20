@@ -22,8 +22,8 @@ export const addMultipleChapters = createAsyncThunk(
 export const getChapterList = createAsyncThunk(
   'chapter/getChapterList',
 
-  async () => {
-    const response = await mangaApi.getChapterList()
+  async (data) => {
+    const response = await mangaApi.getChapterList(data)
     return response
   }
 )
@@ -41,11 +41,11 @@ const chapter = createSlice({
         {id: chapter.id, index: chapter.index, title: chapter.title}
       ))
 
-      return data;
+      return data
     }
   }
 })
 
 const { reducer, actions } = chapter
-export const { getAll } = actions
+export const { } = actions
 export default reducer
