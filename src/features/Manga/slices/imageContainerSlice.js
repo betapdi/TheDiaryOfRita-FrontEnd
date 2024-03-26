@@ -5,7 +5,8 @@ export const getChapterImages = createAsyncThunk(
   'imageContainer/getChapterImages',
 
   async (data) => {
-    const response = await mangaApi.getChapterImages(data)
+    const {mangaId, chapterId} = data
+    const response = await mangaApi.getChapterImages(mangaId, chapterId)
     return response
   }
 )
