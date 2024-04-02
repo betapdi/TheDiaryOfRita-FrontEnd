@@ -14,6 +14,7 @@ const ChapterPage = () => {
       try {
         const response = await mangaApi.getChapterImages(mangaId, chapterId)
         dispatch(getChapterImages({mangaId, chapterId}))
+        console.log(response)
       } catch(error) {
         console.log(error)
       }

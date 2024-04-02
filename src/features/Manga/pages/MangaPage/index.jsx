@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getMangaData } from '../../slices/mangaSlice'
 import { getChapterList } from '../../slices/chapterSlice'
 import mangaApi from '../../../../api/mangaApi'
 
 const MangaPage = (props) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { mangaId } = useParams()
 
   useEffect(() => {
     const fetchMangaInfo = async () => {
       try {
-        let response = await mangaApi.getMangaData(mangaId)
-        response = await mangaApi.getChapterList(mangaId)
+        const response = await mangaApi.getMangaData(mangaId)
 
         dispatch(getMangaData(mangaId))
         dispatch(getChapterList(mangaId))
@@ -25,6 +25,10 @@ const MangaPage = (props) => {
 
     fetchMangaInfo()
   }, [])
+
+  const handleOnClick = (values) => {
+    navigate(`/manga/${mangaId}/${values}`)
+  }
 
   const manga = useSelector(state => state.manga)
   const chapterList = useSelector(state => state.chapterList)
@@ -40,7 +44,9 @@ const MangaPage = (props) => {
 
           <ul>
             {chapterList.map((chapter) =>
-              <li>{chapter.id}</li>
+              <li onClick = {() => handleOnClick(chapter.id)}>
+                  {chapter.id}
+              </li>
             )}
           </ul>
         </>

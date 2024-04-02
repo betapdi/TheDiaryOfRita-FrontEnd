@@ -4,6 +4,7 @@ import mangaApi from '../../../../api/mangaApi'
 import { auth } from '../../../../firebase/firebase-config'
 import TopManga from '../../components/TopManga'
 import { getAllManga } from '../../slices/mangaListSlice'
+import MangaShowcase from '../../components/MangaShowcase'
 
 const MainPage = () => {
   const dispatch = useDispatch()
@@ -14,7 +15,7 @@ const MainPage = () => {
       try {
         const response = await mangaApi.getAll()
         dispatch(getAllManga());
-        // console.log(response)
+        console.log(response)
       } catch (error) {
         console.log("Failed to fetch manga list: ", error)
       }
@@ -29,9 +30,10 @@ const MainPage = () => {
 
   return (
     <div className = "main-page">
-      <TopManga/>
+      <MangaShowcase/>
+      {/* <TopManga/> */}
       
-      <div className="TESTING" height={"500px"} style={{margin: "50vw"}}>.</div>
+      {/* <div className="TESTING" height={"500px"} style={{margin: "50vw"}}>.</div> */}
     </div>
   )
 }
