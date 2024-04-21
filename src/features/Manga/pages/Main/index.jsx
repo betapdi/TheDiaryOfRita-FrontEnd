@@ -4,7 +4,7 @@ import mangaApi from '../../../../api/mangaApi'
 import { auth } from '../../../../firebase/firebase-config'
 import TopManga from '../../components/TopManga'
 import { getAllManga } from '../../slices/mangaListSlice'
-import MangaShowcase from '../../components/MangaShowcase'
+import Banner from '../../../../components/Banner'
 
 const MainPage = () => {
   const dispatch = useDispatch()
@@ -13,9 +13,8 @@ const MainPage = () => {
   useEffect(() => {
     const fetchMangaList = async () => {
       try {
-        const response = await mangaApi.getAll()
-        dispatch(getAllManga());
-        console.log(response)
+        const response = await dispatch(getAllManga());
+        // console.log(response)
       } catch (error) {
         console.log("Failed to fetch manga list: ", error)
       }
@@ -25,13 +24,16 @@ const MainPage = () => {
   }, [])
 
   const mangas = useSelector(state => state.mangaList)
-  console.log('List of mangas: ', mangas)
+  // console.log('List of mangas: ', mangas)
   // console.log(process.env.REACT_APP_SERVER_URL)
 
   return (
     <div className = "main-page">
-      <MangaShowcase/>
-      {/* <TopManga/> */}
+      {/* <MangaShowcase/> */}
+      <Banner/>
+      <div className = "mt-16">
+        <TopManga/>
+      </div>
       
       {/* <div className="TESTING" height={"500px"} style={{margin: "50vw"}}>.</div> */}
     </div>

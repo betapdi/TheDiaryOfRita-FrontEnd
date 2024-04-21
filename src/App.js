@@ -11,6 +11,7 @@ import Authentication from './features/Authentication';
 import { useDispatch } from 'react-redux';
 import { auth } from './firebase/firebase-config';
 import { getUserData } from './features/Authentication/userSlice';
+import background from './assets/images/Korone-theme-opacity75.png';
 const Manga = React.lazy(() => import('./features/Manga'));
 
 function App() {
@@ -36,12 +37,11 @@ function App() {
   }, [])
   
   return (
-    <div className= "manga-app">
+    <div style={{'--image-url': `url(${background})`}} className= "manga-app max-w-full bg-[image:var(--image-url)] bg-repeat">
       <Suspense fallback = {<div>Loading...</div>}>
         {hasToken &&
           <BrowserRouter>
             <Header />
-            <Banner/>
             <Routes>
               <Route path = "/" element = {<Navigate to = "/manga" replace />} />
               <Route path = "manga/*" element = {<Manga />} />

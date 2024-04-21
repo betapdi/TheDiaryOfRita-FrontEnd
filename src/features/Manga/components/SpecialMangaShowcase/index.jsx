@@ -1,9 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-
 // {process.env.REACT_APP_SERVER_URL + props.manga.cover}
 
-const MangaShowcase = (props) => {
+const SpecialMangaShowcase = (props) => {
   const navigate = useNavigate()
   const handleOnClick = (values) => {
     console.log(values)
@@ -11,7 +10,7 @@ const MangaShowcase = (props) => {
   }
 
   return (
-    <div className = "rounded-lg max-w-64 group relative items-center overflow-hidden hover:img cursor-pointer" onClick = {() => handleOnClick(props.manga.id)}>
+    <div className = "rounded-lg group relative items-center overflow-hidden hover:img cursor-pointer" onClick = {() => handleOnClick(props.manga.id)}>
     {/* {console.log("Our Props: ", props)}
     {console.log("Our link: ", process.env.REACT_APP_SERVER_URL + props.manga.cover)} */}
 
@@ -27,4 +26,4 @@ const MangaShowcase = (props) => {
   )
 }
 
-export default MangaShowcase
+export default SpecialMangaShowcase

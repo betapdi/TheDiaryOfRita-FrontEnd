@@ -22,7 +22,7 @@ const Header = () => {
         <img src = "/logo1.png" alt = "Rita" className = "pl-8"/>
       </Link>
 
-      <input type="search" id="default-search" class="block w-2/5 p-3 ps-10 text-sm transition-all text-gray-900 border focus:border-red-500 rounded-3xl bg-gray-100 focus:ring-2 focus:ring-red-500" placeholder="Search Mockups, Logos..." required />
+      <input type="search" id="default-search" className="block w-2/5 p-3 ps-10 text-sm transition-all text-gray-900 border focus:border-red-500 rounded-3xl bg-gray-100 focus:ring-2 focus:ring-red-500" placeholder="Search Mockups, Logos..." required />
 
       <ul className = "list-none sm:flex hidden justify-end items-center pr-8">
         <li>

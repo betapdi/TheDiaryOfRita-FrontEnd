@@ -47,11 +47,13 @@ const mangaApi = {
     formData.append('cover_image', data.cover_image)
 
     const url = '/mangaApp/newManga/'
-    return axiosPrivate.post(url, formData, {
+    const result = axiosPrivate.post(url, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }
     })
+    
+    return result
   },
 
   addChapter: (data) => {
