@@ -71,5 +71,7 @@ export default App;
 // npm install yup
 // npm install react-select
 // npm install bootstrap (remember add bootstrap css file when using reactstrap) (import 'bootstrap/dist/css/bootstrap.css')
+// npm install -D @tailwindcss/forms
+// npm install -D tailwindcss
 // Search files quick: ctrl + P (vscode)
 

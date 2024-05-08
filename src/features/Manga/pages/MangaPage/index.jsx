@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getMangaData } from '../../slices/mangaSlice'
 import { getChapterList } from '../../slices/chapterSlice'
-import { Rating } from '@mui/material'
-import { Star } from '@mui/icons-material'
 import { Favorite } from '@mui/icons-material'
 import mangaApi from '../../../../api/mangaApi'
 import MangaShowcase from '../../components/MangaShowcase'
+import RangeSlider from '../../../../custom-fields/RangeSlider'
+import StarRatingForm from '../../components/StarRatingForm'
 
 const MangaPage = (props) => {
   const [stars, setStars] = useState(0)
@@ -31,13 +31,14 @@ const MangaPage = (props) => {
     fetchMangaInfo()
   }, [])
 
-  const handleOnClick = (values) => {
-    navigate(`/manga/${mangaId}/${values}`)
+  const handleRateManga = (value) => {
+    console.log("Manga was rated as ", value)
   }
 
   const manga = useSelector(state => state.manga)
   const chapterList = useSelector(state => state.chapterList)
-  // console.log(manga);
+  console.log(manga);
+  console.log(chapterList);
 
   return (
     <div className = "manga-page">
@@ -82,6 +83,7 @@ const MangaPage = (props) => {
           <div className = "flex mt-4 mx-8">
             <div className = "flex-initial text-center">
               <MangaShowcase manga = {manga}/>
+              <RangeSlider/>
             </div>
 
             <div className = "flex-1 ml-8">
@@ -106,7 +108,19 @@ const MangaPage = (props) => {
                 <div className = "">
                   Rating
                 </div>
-                <Rating name="simple-controlled" size = "large" value={stars} onChange={(event, newRating) => {setStars(newRating)}} />
+                <StarRatingForm manga = {manga} onChange = {handleRateManga}/>
+              </div>
+
+              <div className = "album-section mt-4" >
+                <div className = "">
+                  My Albums
+                </div>
+
+                <div className = "flex flex-wrap gap-3 text-center">
+                  {manga.categories.map((category) => (
+                    <div className = "px-8 py-2 border rounded-lg bg-korone-skin-dark">{category}</div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
