@@ -37,6 +37,16 @@ const mangaApi = {
     return axiosClient.get(url);
   },
 
+  getAlbumList: () => {
+    const url = '/mangaApp/albums/'
+    return axiosPrivate.get(url);
+  },
+
+  getAlbumMangaList: (albumId) => {
+    const url = `/mangaApp/albums/${albumId}/`
+    return axiosPrivate.get(url);
+  },
+
   addManga: (data) => {
     const formData = new FormData()
     formData.append('mangaName', data.mangaName)

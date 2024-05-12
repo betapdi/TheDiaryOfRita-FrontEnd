@@ -8,41 +8,82 @@ import mangaApi from '../../../../api/mangaApi'
 import MangaShowcase from '../../components/MangaShowcase'
 import RangeSlider from '../../../../custom-fields/RangeSlider'
 import StarRatingForm from '../../components/StarRatingForm'
+import { getAlbumList } from '../../slices/albumSlice'
 
 const MangaPage = (props) => {
-  const [stars, setStars] = useState(0)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { mangaId } = useParams()
+  const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
-    const fetchMangaInfo = async () => {
+    const fetchPageInfo = async () => {
       try {
-        const response = await mangaApi.getMangaData(mangaId)
-
+        
         dispatch(getMangaData(mangaId))
         dispatch(getChapterList(mangaId))
-        console.log(response)
+        dispatch(getAlbumList())
+        const response = await mangaApi.getMangaData(mangaId)
+        setIsFetched(true)
+        // console.log(response)
       } catch (error) {
         console.log("Failed to fetch manga list: ", error)
       }
-    }
 
-    fetchMangaInfo()
+    }
+    
+    fetchPageInfo()
   }, [])
 
   const handleRateManga = (value) => {
     console.log("Manga was rated as ", value)
   }
 
+  const isListed = (mangaList) => {
+    // console.log(manga.id)
+    return mangaList.some((mangaId) => (mangaId === manga.id))
+  }
+
+  const handleOnClickAlbum = (index) => {
+    // console.log(index)
+    const newAlbums = albumList.map((album, id) => {
+      if (id === index) {
+        return {...album, isListed: !album.isListed};
+      }
+
+      else return album;
+    })
+
+    console.log(newAlbums);
+    setAlbumList(newAlbums);
+  }
+
   const manga = useSelector(state => state.manga)
   const chapterList = useSelector(state => state.chapterList)
-  console.log(manga);
-  console.log(chapterList);
+  const albums = useSelector(state => state.albumList)
+
+  const [stars, setStars] = useState(0)
+  const [albumList, setAlbumList] = useState(null)
+  
+
+  useEffect(() => {
+    // console.log("FETCHED!!");
+    console.log(albums);
+    let list = [];
+    albums.forEach(album => {
+      list.push({...album, isListed: isListed(album.mangaList)});
+    })
+
+    console.log(list);
+    setAlbumList(list);
+  }, [isFetched])
+
+  // console.log(manga);
+  // console.log(chapterList);
 
   return (
     <div className = "manga-page">
-      {manga != null ? 
+      {(manga != null && albumList != null) ? (
         <div className = "mx-32">
           <div className = "flex items-center">
             <div className = "flex-1 text-center border-2 cursor-pointer py-2">
@@ -117,9 +158,14 @@ const MangaPage = (props) => {
                 </div>
 
                 <div className = "flex flex-wrap gap-3 text-center">
-                  {manga.categories.map((category) => (
-                    <div className = "px-8 py-2 border rounded-lg bg-korone-skin-dark">{category}</div>
-                  ))}
+                  {albumList.map((album, index) => {
+                    const color = (album.isListed ? 'bg-korone-skin-dark' : 'bg-korone-skin-light');
+                    // console.log(album.name);
+                    return (
+                      <div onClick = {() => handleOnClickAlbum(index)} className = {`px-8 py-2 border rounded-lg cursor-pointer transition-all duration-200 hover:opacity-70 ${color}`}>{album.name}</div>
+                    );
+                  })}
+
                 </div>
               </div>
             </div>
@@ -135,7 +181,7 @@ const MangaPage = (props) => {
               </li>
             )}
           </ul> */}
-        </div>
+        </div>)
         : <h1>NONE</h1>
       }
     </div>

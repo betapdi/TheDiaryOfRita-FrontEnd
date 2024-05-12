@@ -8,6 +8,7 @@ import chapterReducer from "../features/Manga/slices/chapterSlice"
 import imageContainerReducer from "../features/Manga/slices/imageContainerSlice"
 import topMangaReducer from "../features/Manga/slices/topMangaSlice"
 import bannerReducer from "../slices/bannerSlice"
+import albumReducer from "../features/Manga/slices/albumSlice"
 
 const rootReducer = {
   userData: userReducer,
@@ -18,7 +19,8 @@ const rootReducer = {
   favouriteList: favouriteReducer,
   topManga: topMangaReducer,
   chapterList: chapterReducer,
-  imageContainer: imageContainerReducer
+  imageContainer: imageContainerReducer,
+  albumList: albumReducer,
 }
 
 const store = configureStore({
