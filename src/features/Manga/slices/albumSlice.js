@@ -10,6 +10,33 @@ export const getAlbumList = createAsyncThunk(
   }
 )
 
+export const addMangaAlbum = createAsyncThunk(
+  'album/addMangaAlbum',
+
+  async (data) => {
+    const response = await mangaApi.addMangaAlbum(data);
+    return response
+  }
+)
+
+export const removeMangaAlbum = createAsyncThunk(
+  'album/removeMangaAlbum',
+
+  async (data) => {
+    const response = await mangaApi.removeMangaAlbum(data);
+    return response;
+  }
+)
+
+export const deleteAlbum = createAsyncThunk(
+  'album/deleteAlbum',
+  
+  async (albumId) => {
+    const response = await mangaApi.deleteAlbum(albumId);
+    return response;
+  }
+)
+
 const album = createSlice({
   name: 'album',
   initialState: [],
@@ -24,7 +51,33 @@ const album = createSlice({
       ))
 
       return data
-    }
+    },
+
+    [addMangaAlbum.fulfilled]: (state, action) => {
+      const data = action.payload;
+      state.push(data)
+    },
+
+    [removeMangaAlbum.fulfilled]: (state, action) => {
+      const chosenAlbum = action.payload
+      const data = state.map((album) => {
+        if (chosenAlbum.id === album.id) {
+          return {id: album.id, name: album.name, mangaList: album.mangaList};
+        }
+
+        else return album;
+      })
+
+      return data;
+    },
+
+    [deleteAlbum.fulfilled]: (state, action) => {
+      const data = action.payload.map((album) => (
+        {id: album.id, name: album.name, mangaList: album.mangaList}
+      ))
+
+      return data;
+    },
   }
 })
 

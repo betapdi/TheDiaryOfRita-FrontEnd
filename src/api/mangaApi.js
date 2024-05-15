@@ -91,6 +91,11 @@ const mangaApi = {
     })
   },
 
+  addMangaAlbum: (data) => {
+    const url = `/mangaApp/albums/add/${data.albumId}/${data.mangaId}/`
+    return axiosPrivate.post(url);
+  },
+
   deleteManga: (id) => {
     const url = `/mangaApp/${id}/delete/`;
     return axiosPrivate.delete(url);
@@ -99,7 +104,18 @@ const mangaApi = {
   deleteChapter: (mangaId, chapterId) => {
     const url = `/mangaApp/${mangaId}/${chapterId}/delete/`;
     return axiosPrivate.delete(url)
-  }
+  },
+
+  deleteAlbum: (albumId) => {
+    const url = `/mangaApp/albums/delete/${albumId}`;
+    return axiosPrivate.delete(url)
+  },
+
+  removeMangaAlbum: (data) => {
+    console.log(data)
+    const url = `/mangaApp/albums/remove/${data.albumId}/${data.mangaId}/`
+    return axiosPrivate.delete(url)
+  },
 
   //To Do: Check authorization when upload data
 }
