@@ -41,7 +41,7 @@ const MangaPage = (props) => {
 
   return (
     <div className = "manga-page">
-      {(manga != null && isFetched) ? (
+      {(manga != null && albums.length > 0) ? (
         <div className = "mx-32">
           <div className = "flex items-center">
             <div className = "flex-1 text-center border-2 cursor-pointer py-2">
