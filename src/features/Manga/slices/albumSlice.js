@@ -54,20 +54,28 @@ const album = createSlice({
     },
 
     [addMangaAlbum.fulfilled]: (state, action) => {
-      const data = action.payload;
-      state.push(data)
+      const chosenAlbum = action.payload
+      const data = state.map((album) => {
+        if (chosenAlbum.id === album.id) {
+          return {id: chosenAlbum.id, name: chosenAlbum.name, mangaList: chosenAlbum.mangaList};
+        }
+
+        else return album;
+      })
+      
+      return data;
     },
 
     [removeMangaAlbum.fulfilled]: (state, action) => {
       const chosenAlbum = action.payload
       const data = state.map((album) => {
         if (chosenAlbum.id === album.id) {
-          return {id: album.id, name: album.name, mangaList: album.mangaList};
+          return {id: chosenAlbum.id, name: chosenAlbum.name, mangaList: chosenAlbum.mangaList};
         }
 
         else return album;
       })
-
+      
       return data;
     },
 

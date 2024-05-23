@@ -34,7 +34,6 @@ const Overview = (props) => {
  }
 
   const handleOnClickAlbum = (index) => {
-    console.log ()
     // console.log(index)
     const newAlbums = albumList.map((album, id) => {
       if (id === index) {
@@ -49,6 +48,10 @@ const Overview = (props) => {
 
     setAlbumList(newAlbums)
   }
+
+  useEffect(() => {
+    console.log("Albums after change: ", albums);
+  }, [albums])
 
   return (
     (albumList != null) &&
