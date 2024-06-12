@@ -133,7 +133,7 @@ const Overview = (props) => {
                   <div onClick = {() => handleOnClickAlbum(index)} className = {`px-8 py-2 border rounded-lg cursor-pointer transition-all duration-200 hover:opacity-70 ${color}`}>{album.name}</div>
                 );
               })}
-              <AlbumsDialog isOpen = {isOpenDialog} handleClose = {handleCloseDialog}/>
+              <AlbumsDialog albumList  = {albumList} isOpen = {isOpenDialog} handleClose = {handleCloseDialog}/>
               <div onClick = {() => handleOnClickAddAlbum()} className = {`px-8 py-2 border rounded-full cursor-pointer transition-all duration-200 hover:opacity-70 text-2xl`}>+</div>
             </div>
           </div>
