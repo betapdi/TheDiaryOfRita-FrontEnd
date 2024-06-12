@@ -2,14 +2,17 @@ import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MangaShowcase from '../../../../components/MangaShowcase'
 import RangeSlider from '../../../../../../custom-fields/RangeSlider'
-import { Favorite } from '@mui/icons-material'
+import { Favorite, Add } from '@mui/icons-material'
+import { Dialog, DialogTitle, DialogContent } from '@mui/material'
 import StarRatingForm from '../../../../components/StarRatingForm'
 import { addMangaAlbum, removeMangaAlbum, deleteAlbum } from '../../../../slices/albumSlice'
+import AlbumsDialog from './components/AlbumsDialog'
 
 const Overview = (props) => {
   const {manga, albums} = props
   const [stars, setStars] = useState(0)
   const [albumList, setAlbumList] = useState(null)
+  const [isOpenDialog, setIsOpenDialog] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -47,6 +50,14 @@ const Overview = (props) => {
     })
 
     setAlbumList(newAlbums)
+  }
+
+  const handleOnClickAddAlbum = () => {
+    setIsOpenDialog(true);
+  }
+
+  const handleCloseDialog = () => {
+    setIsOpenDialog(false);
   }
 
   useEffect(() => {
@@ -122,7 +133,8 @@ const Overview = (props) => {
                   <div onClick = {() => handleOnClickAlbum(index)} className = {`px-8 py-2 border rounded-lg cursor-pointer transition-all duration-200 hover:opacity-70 ${color}`}>{album.name}</div>
                 );
               })}
-
+              <AlbumsDialog isOpen = {isOpenDialog} handleClose = {handleCloseDialog}/>
+              <div onClick = {() => handleOnClickAddAlbum()} className = {`px-8 py-2 border rounded-full cursor-pointer transition-all duration-200 hover:opacity-70 text-2xl`}>+</div>
             </div>
           </div>
         </div>
